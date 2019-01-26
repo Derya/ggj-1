@@ -5,9 +5,6 @@ using UnityEngine;
 public class ShipControl : MonoBehaviour
 {
     [SerializeField]
-    float turretFiringArcSize;
-
-    [SerializeField]
     float thrustFactor;
 
     [SerializeField]
@@ -38,10 +35,10 @@ public class ShipControl : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         turrets = new TurretWrapper[4] { 
-            new TurretWrapper(turretLeftBot, -70),//-70, 160), 
-            new TurretWrapper(turretRightBot, 20),//20, -110),
-            new TurretWrapper(turretLeftTop, 70),//70, -160),
-            new TurretWrapper(turretRightTop, 110),//110, -20)
+            new TurretWrapper(turretLeftBot, turretLeftBot.transform.localEulerAngles),//-70, 160), 
+            new TurretWrapper(turretRightBot, turretRightBot.transform.localEulerAngles),//20, -110),
+            new TurretWrapper(turretLeftTop, turretLeftTop.transform.localEulerAngles),//70, -160),
+            new TurretWrapper(turretRightTop, turretRightTop.transform.localEulerAngles),//110, -20)
         };
 
         thrusters = new ThrusterWrapper[thrusterRefs.Length];
@@ -142,15 +139,34 @@ public class ShipControl : MonoBehaviour
         public TurretScript script;
         public float arcCenter;
 
-        public TurretWrapper(GameObject gameObject, float arcCenter)
+        float maxAngle = 40;
+
+        public TurretWrapper(GameObject gameObject, Vector3 localRot)
         {
             this.gameObject = gameObject;
-            this.arcCenter = arcCenter;
+            this.arcCenter = localRot.z;
             this.script = gameObject.GetComponent<TurretScript>();
         }
 
         public void clamp()
         {
+            Vector3 localRot = gameObject.transform.localEulerAngles;
+
+            if (Mathf.Abs(Mathf.DeltaAngle(localRot.z, arcCenter)) > maxAngle)
+            {
+                float edge1 = arcCenter + maxAngle;
+                float edge2 = arcCenter - maxAngle;
+
+                if (Mathf.Abs(Mathf.DeltaAngle(localRot.z, edge1)) < Mathf.Abs(Mathf.DeltaAngle(localRot.z, edge2)))
+                {
+                    localRot.z = edge1;
+                }
+                else
+                {
+                    localRot.z = edge2;
+                }
+                gameObject.transform.eulerAngles = localRot;
+            }
 
         }
     }

@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipRotationFactor: 1
-  turretRotationFactor: 1
+  turretRotationFactor: 999
   turretLeftBot: {fileID: 92401842}
   turretRightBot: {fileID: 1461326527}
   turretLeftTop: {fileID: 1910595967}

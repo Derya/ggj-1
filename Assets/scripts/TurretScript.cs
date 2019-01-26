@@ -40,9 +40,16 @@ public class TurretScript : MonoBehaviour
 
     public void fire()
     {
-        StopAllCoroutines();
-        readyToFire = false;
-        StartCoroutine(playAnimation(fireSprites, fireFrameTime, 0));
+        if (!readyToFire)
+        {
+            queueFire = true;
+        }
+        else
+        {
+            StopAllCoroutines();
+            readyToFire = false;
+            StartCoroutine(playAnimation(fireSprites, fireFrameTime, 0));
+        }
     }
 
     IEnumerator playAnimation(Sprite[] frames, float frameTime, int frame)
@@ -58,8 +65,16 @@ public class TurretScript : MonoBehaviour
 
         if (frame + 1 == frames.Length)
         {
-            readyToFire = true;
-            StartCoroutine(playAnimation(idleSprites, idleFrameTime, 0));
+            if (queueFire)
+            {
+                queueFire = false;
+                StartCoroutine(playAnimation(fireSprites, fireFrameTime, 0));
+            }
+            else
+            {
+                readyToFire = true;
+                StartCoroutine(playAnimation(idleSprites, idleFrameTime, 0));
+            }
         }
         else
         {
@@ -72,6 +87,6 @@ public class TurretScript : MonoBehaviour
         Vector3 initialPosition = flower.transform.position;
 
         GameObject bullet = Instantiate(turretProjectile, initialPosition, flower.transform.rotation) as GameObject;
-        bullet.GetComponent<Rigidbody2D>().AddForce(flower.transform.up * 100);
+        bullet.GetComponent<Rigidbody2D>().AddForce(flower.transform.up * 1);
     }
 }

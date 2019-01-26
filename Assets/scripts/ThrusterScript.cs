@@ -66,7 +66,7 @@ public class ThrusterScript : MonoBehaviour
 
     IEnumerator spawnFlame()
     {
-        yield return new WaitForSeconds(flameSpawnTime);
+        yield return new WaitForSeconds(flameSpawnTime * Random.Range(0.9f, 1.1f));
 
         if(emitFlames)
         {

@@ -129,19 +129,8 @@ public class ShipControl : MonoBehaviour
 
         if (canFire && Input.GetMouseButtonDown(0))
         {
-            fire(turretWrapper);
+            turretWrapper.script.fire();
         }
-    }
-
-    void fire(TurretWrapper turretWrapper)
-    {
-        if (!turretWrapper.script.readyToFire)
-        {
-            turretWrapper.script.queueFire = true;
-            return;
-        }
-
-        turretWrapper.script.fire();
     }
 
     public class TurretWrapper

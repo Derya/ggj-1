@@ -5,9 +5,6 @@ using UnityEngine;
 public class ShipControl : MonoBehaviour
 {
     [SerializeField]
-    GameObject turretProjectile;
-
-    [SerializeField]
     float turretFiringArcSize;
 
     [SerializeField]
@@ -102,9 +99,9 @@ public class ShipControl : MonoBehaviour
         }
     }
 
-    void handleTurret(Vector3 target, TurretWrapper wrapper)
+    void handleTurret(Vector3 target, TurretWrapper turretWrapper)
     {
-        GameObject turret = wrapper.turret;
+        GameObject turret = turretWrapper.turret;
         Vector3 vectorToTarget = target - turret.transform.position;
 
         float angleToTarget = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
@@ -112,13 +109,23 @@ public class ShipControl : MonoBehaviour
         Quaternion newRotation = Quaternion.RotateTowards(turret.transform.rotation, q, turretRotationFactor);
         bool canFire = Quaternion.Angle(newRotation, turret.transform.rotation) < 2;
         turret.transform.rotation = newRotation;
-        wrapper.clamp();
+        turretWrapper.clamp();
 
         if (canFire && Input.GetMouseButtonDown(0))
         {
-            GameObject bullet = Instantiate(turretProjectile, turret.transform.position, turret.transform.rotation) as GameObject;
-            bullet.GetComponent<Rigidbody2D>().AddForce(turret.transform.up * 100);
+            fire(turretWrapper);
         }
+    }
+
+    void fire(TurretWrapper turretWrapper)
+    {
+        if (!turretWrapper.script.readyToFire)
+        {
+            turretWrapper.script.queueFire = true;
+            return;
+        }
+
+        turretWrapper.script.fire();
     }
 
     public class TurretWrapper

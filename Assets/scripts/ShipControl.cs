@@ -22,6 +22,11 @@ public class ShipControl : MonoBehaviour
     [SerializeField]
     GameObject turretRightTop;
 
+    [SerializeField]
+    GameObject[] thrusterRefs;
+
+    ThrusterWrapper[] thrusters;
+
     TurretWrapper[] turrets;
 
     Rigidbody2D body;
@@ -35,8 +40,14 @@ public class ShipControl : MonoBehaviour
             new TurretWrapper(turretLeftTop, 70),//70, -160),
             new TurretWrapper(turretRightTop, 110),//110, -20)
         };
-    }
 
+        thrusters = new ThrusterWrapper[thrusterRefs.Length];
+
+        for (var i = 0; i < thrusterRefs.Length; i++)
+        {
+            thrusters[i] = new ThrusterWrapper(thrusterRefs[i]);
+        }
+    }
 
     void Update()
     {
@@ -97,11 +108,16 @@ public class ShipControl : MonoBehaviour
         {
             body.AddRelativeForce(Vector2.down);
         }
+
+        foreach (var thruster in thrusters)
+        {
+            thruster.script.setEmitFlames(gas, direction);
+        }
     }
 
     void handleTurret(Vector3 target, TurretWrapper turretWrapper)
     {
-        GameObject turret = turretWrapper.turret;
+        GameObject turret = turretWrapper.gameObject;
         Vector3 vectorToTarget = target - turret.transform.position;
 
         float angleToTarget = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
@@ -130,15 +146,15 @@ public class ShipControl : MonoBehaviour
 
     public class TurretWrapper
     {
-        public GameObject turret;
+        public GameObject gameObject;
         public TurretScript script;
         public float arcCenter;
 
-        public TurretWrapper(GameObject turret, float arcCenter)
+        public TurretWrapper(GameObject gameObject, float arcCenter)
         {
-            this.turret = turret;
+            this.gameObject = gameObject;
             this.arcCenter = arcCenter;
-            this.script = turret.GetComponent<TurretScript>();
+            this.script = gameObject.GetComponent<TurretScript>();
         }
 
         public void clamp()
@@ -147,14 +163,17 @@ public class ShipControl : MonoBehaviour
         }
     }
 
-}
+    public class ThrusterWrapper
+    {
+        public GameObject gameObject;
+        public ThrusterScript script;
 
-enum Direction
-{
-    left, right, none
-}
+        public ThrusterWrapper(GameObject gameObject)
+        {
+            this.gameObject = gameObject;
+            this.script = gameObject.GetComponent<ThrusterScript>();
+        }
+    }
 
-enum Gas
-{
-    forward, back, none
+
 }

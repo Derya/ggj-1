@@ -139,7 +139,7 @@ public class ShipControl : MonoBehaviour
         public TurretScript script;
         public float arcCenter;
 
-        float maxAngle = 40;
+        float maxAngle = 65;
 
         public TurretWrapper(GameObject gameObject, Vector3 localRot)
         {
@@ -165,7 +165,7 @@ public class ShipControl : MonoBehaviour
                 {
                     localRot.z = edge2;
                 }
-                gameObject.transform.eulerAngles = localRot;
+                gameObject.transform.localEulerAngles = localRot;
             }
 
         }

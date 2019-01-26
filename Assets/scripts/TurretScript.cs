@@ -24,6 +24,8 @@ public class TurretScript : MonoBehaviour
 
     SpriteRenderer targetRenderer;
 
+    Rigidbody2D shipBody;
+
     public bool readyToFire = true;
     public bool queueFire = false;
 
@@ -31,6 +33,7 @@ public class TurretScript : MonoBehaviour
     {
         targetRenderer = flower.GetComponent<SpriteRenderer>();
         StartCoroutine(playAnimation(idleSprites, idleFrameTime, 0));
+        shipBody = GetComponentInParent<Rigidbody2D>();
     }
 
     void Update()
@@ -58,7 +61,7 @@ public class TurretScript : MonoBehaviour
 
         yield return new WaitForSeconds(frameTime);
 
-        if (frames == fireSprites && frame == 3)
+        if (frames == fireSprites && frame == 2)
         {
             spawnBullet();
         }
@@ -87,6 +90,10 @@ public class TurretScript : MonoBehaviour
         Vector3 initialPosition = flower.transform.position;
 
         GameObject bullet = Instantiate(turretProjectile, initialPosition, flower.transform.rotation) as GameObject;
-        bullet.GetComponent<Rigidbody2D>().AddForce(flower.transform.up * 1);
+
+        Vector3 force = flower.transform.up * 10;
+
+        bullet.GetComponent<Rigidbody2D>().AddForce(force);
+        shipBody.AddForceAtPosition(-force, bullet.transform.position);
     }
 }

@@ -8,6 +8,9 @@ public class ShipControl : MonoBehaviour
     float turretFiringArcSize;
 
     [SerializeField]
+    float thrustFactor;
+
+    [SerializeField]
     float shipRotationFactor;
 
     [SerializeField]
@@ -102,11 +105,11 @@ public class ShipControl : MonoBehaviour
 
         if (gas == Gas.forward)
         {
-            body.AddRelativeForce(Vector2.up);
+            body.AddRelativeForce(Vector2.up * thrustFactor);
         }
         else if (gas == Gas.back)
         {
-            body.AddRelativeForce(Vector2.down);
+            body.AddRelativeForce(Vector2.down * thrustFactor);
         }
 
         foreach (var thruster in thrusters)

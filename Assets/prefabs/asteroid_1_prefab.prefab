@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f230688e475534514a6a6d9a18c22ad1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf3bb6736e2644223bdd9503d5b2b2a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,10 +94,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d7343cb2eaf4276b1cd53b0679e1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPerStage: 8
   mainSprite: {fileID: 264035027204889}
   stages:
-  - {fileID: 21300000, guid: f230688e475534514a6a6d9a18c22ad1, type: 3}
-  - {fileID: 21300000, guid: 586abbd943327451aa67d475fcb365c8, type: 3}
+  - {fileID: 21300000, guid: cf3bb6736e2644223bdd9503d5b2b2a0, type: 3}
+  - {fileID: 21300000, guid: 172a98b83a7944bc688e0a4b0a511b44, type: 3}
+  - {fileID: 21300000, guid: 919203999173e41b7b9451006d9adcbb, type: 3}
+  - {fileID: 21300000, guid: 1af5a73373b8b4da6ae90e1a155347b5, type: 3}
+  - {fileID: 21300000, guid: 8ac692ff484e54b72a1911f0ed1251c5, type: 3}
 --- !u!50 &5654258601402276904
 Rigidbody2D:
   serializedVersion: 4

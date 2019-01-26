@@ -498,8 +498,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353517a37c99440d888573988fa1b66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretProjectile: {fileID: 4194543559720625147, guid: 11c8ad6a06d3546e39fda0160f1bc8c1,
+    type: 3}
+  turretFiringArcSize: 130
   shipRotationFactor: 1
-  turretRotationFactor: 999
+  turretRotationFactor: 1
   turretLeftBot: {fileID: 92401842}
   turretRightBot: {fileID: 1461326527}
   turretLeftTop: {fileID: 1910595967}

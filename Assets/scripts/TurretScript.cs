@@ -25,6 +25,7 @@ public class TurretScript : MonoBehaviour
     SpriteRenderer targetRenderer;
 
     Rigidbody2D shipBody;
+    Collider2D shipCollider;
 
     public bool readyToFire = true;
     public bool queueFire = false;
@@ -34,6 +35,7 @@ public class TurretScript : MonoBehaviour
         targetRenderer = flower.GetComponent<SpriteRenderer>();
         StartCoroutine(playAnimation(idleSprites, idleFrameTime, 0));
         shipBody = GetComponentInParent<Rigidbody2D>();
+        shipCollider = GetComponentInParent<Collider2D>();
     }
 
     void Update()
@@ -90,6 +92,8 @@ public class TurretScript : MonoBehaviour
         Vector3 initialPosition = flower.transform.position;
 
         GameObject bullet = Instantiate(turretProjectile, initialPosition, flower.transform.rotation) as GameObject;
+
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), shipCollider);
 
         Vector3 force = flower.transform.up * 10;
 

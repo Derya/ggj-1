@@ -5,6 +5,9 @@ using UnityEngine;
 public class AsteroidScript : MonoBehaviour
 {
     [SerializeField]
+    int healthPerStage;
+
+    [SerializeField]
     GameObject mainSprite;
     SpriteRenderer targetRenderer;
 
@@ -12,6 +15,7 @@ public class AsteroidScript : MonoBehaviour
     Sprite[] stages;
 
     int stage = 0;
+    int hitsThisStage = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +31,24 @@ public class AsteroidScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(collision.gameObject);
+        if (collision.gameObject.tag == "player_bullet")
+        {
+            hitsThisStage = hitsThisStage + 1;
+            if (hitsThisStage > healthPerStage)
+            {
+                hitsThisStage = 0;
+                nextStage();
+            }
+            Destroy(collision.gameObject);
+        }
+
+        else if (collision.gameObject.tag == "player_ship")
+        {
+            print("bonk!");
+        }
     }
 
-    void strike()
+    void nextStage()
     {
         if (stage == stages.Length - 1)
         {

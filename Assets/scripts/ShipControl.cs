@@ -31,6 +31,8 @@ public class ShipControl : MonoBehaviour
 
     Rigidbody2D body;
 
+    int health;
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -47,23 +49,31 @@ public class ShipControl : MonoBehaviour
         {
             thrusters[i] = new ThrusterWrapper(thrusterRefs[i]);
         }
+
+        health = 10;
     }
 
     void Update()
     {
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        foreach (TurretWrapper turret in turrets)
+        if (health > 0)
         {
-            handleTurret(mouse, turret);
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            foreach (TurretWrapper turret in turrets)
+            {
+                handleTurret(mouse, turret);
+            }
         }
     }
 
     void FixedUpdate()
     {
-        handleThrusters();
+        if (health > 0) 
+        {
+            handleControls();
+        }
     }
 
-    void handleThrusters()
+    void handleControls()
     {
         bool holdingLeft = Input.GetKey(App.ROTATE_LEFT_KEY);
         bool holdingRight = Input.GetKey(App.ROTATE_RIGHT_KEY);
@@ -149,7 +159,17 @@ public class ShipControl : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
-            print("were shot capt");
+            takeDamage();
+        }
+    }
+
+    void takeDamage()
+    {
+        health--;
+
+        if (health <= 0)
+        {
+            GameManager.died();
         }
     }
 

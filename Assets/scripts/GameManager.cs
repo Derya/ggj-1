@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     static GameObject player;
     static Rigidbody2D playerBody;
 
+    static GameObject youDied;
+
     public static GameObject getPlayer()
     {
         return player;
@@ -22,8 +24,13 @@ public class GameManager : MonoBehaviour
         return playerBody;
     }
 
+    public static bool dead;
+
     void Start()
     {
+        youDied = GameObject.FindWithTag("asdf1");
+        youDied.SetActive(false);
+
         camera = FindObjectOfType<Camera>();
         player = GameObject.FindWithTag("player_ship");
         playerBody = player.GetComponent<Rigidbody2D>();
@@ -79,6 +86,18 @@ public class GameManager : MonoBehaviour
         {
             Physics2D.IgnoreCollision(bulletCollider, enemy.collider);
         }
+    }
+
+    public static void died()
+    {
+        dead = true;
+
+        foreach ( var x in GameObject.FindGameObjectsWithTag("killable_ship_component"))
+        {
+            x.GetComponent<IdleAnimation>().pause();
+        }
+
+        youDied.SetActive(true);
     }
 }
 

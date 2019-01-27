@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
-    private static int healthPerStage = 4;
+    private static int healthPerStage = 3;
 
     [SerializeField]
     GameObject mainSprite;
@@ -15,6 +15,8 @@ public class AsteroidScript : MonoBehaviour
 
     int stage = 0;
     int hitsThisStage = 0;
+
+    bool colonized;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,16 @@ public class AsteroidScript : MonoBehaviour
         }
 
         stage = stage + 1;
+        if (stage == stages.Length - 1)
+        {
+            colonized = true;
+        }
         targetRenderer.sprite = stages[stage];
     }
+
+    public bool isColonized()
+    {
+        return colonized;
+    }
+
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
-    [SerializeField]
-    int healthPerStage;
+    private static int healthPerStage = 4;
 
     [SerializeField]
     GameObject mainSprite;

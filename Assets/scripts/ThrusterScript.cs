@@ -5,16 +5,7 @@ using UnityEngine;
 public class ThrusterScript : MonoBehaviour
 {
     [SerializeField]
-    GameObject mainSprite;
-
-    [SerializeField]
     ThrusterType type;
-
-    [SerializeField]
-    Sprite[] idleSprites;
-
-    [SerializeField]
-    float idleFrameTime;
 
     [SerializeField]
     float flameSpawnTime;
@@ -25,8 +16,7 @@ public class ThrusterScript : MonoBehaviour
 
     void Start()
     {
-        targetRenderer = mainSprite.GetComponent<SpriteRenderer>();
-        beginIdleAnim();
+
     }
 
     void Update()
@@ -74,26 +64,5 @@ public class ThrusterScript : MonoBehaviour
         }
 
         StartCoroutine(spawnFlame());
-    }
-
-    void beginIdleAnim()
-    {
-        StartCoroutine(playAnimation(idleSprites, idleFrameTime, 0));
-    }
-
-    IEnumerator playAnimation(Sprite[] frames, float frameTime, int frame)
-    {
-        targetRenderer.sprite = frames[frame];
-
-        yield return new WaitForSeconds(frameTime);
-
-        if (frame + 1 == frames.Length)
-        {
-            beginIdleAnim();
-        }
-        else
-        {
-            StartCoroutine(playAnimation(frames, frameTime, frame + 1));
-        }
     }
 }

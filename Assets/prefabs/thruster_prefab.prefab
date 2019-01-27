@@ -45,21 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2533c0d76052422ea8ecdaa7b88cdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainSprite: {fileID: 4793167662667313929}
   type: 0
-  idleSprites:
-  - {fileID: 21300000, guid: 36c49611acdc2468fb01d6ddcb91325c, type: 3}
-  - {fileID: 21300000, guid: c9c027aba53014d31b4102990ff08061, type: 3}
-  - {fileID: 21300000, guid: 5b85ea42e3459458eb28255bdfa09c57, type: 3}
-  - {fileID: 21300000, guid: 51e37586c509041a69f25fa83308c22e, type: 3}
-  - {fileID: 21300000, guid: 619e3add5b3574d9d90a246a9054ccdd, type: 3}
-  - {fileID: 21300000, guid: 0ff28961479b14a30acc5aa73e468721, type: 3}
-  - {fileID: 21300000, guid: 6b282aa28df8a4740a37e4a9c99673ef, type: 3}
-  - {fileID: 21300000, guid: f16bd7d2ee1be4fe994e13df41bfb65e, type: 3}
-  - {fileID: 21300000, guid: 55350bf3397f949449ab9f84c62f3120, type: 3}
-  - {fileID: 21300000, guid: 58ba88565bfc14793ae45ef8aacba842, type: 3}
-  - {fileID: 21300000, guid: 400cb2688244c4e229f0f3718b9e39f0, type: 3}
-  idleFrameTime: 0.1
   flameSpawnTime: 0.3
 --- !u!1 &4793167662667313929
 GameObject:
@@ -71,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3903002635515553267}
   - component: {fileID: 3113672349534041621}
+  - component: {fileID: 198470818052042801}
   m_Layer: 0
   m_Name: flower
   m_TagString: Untagged
@@ -140,6 +127,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &198470818052042801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793167662667313929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e09bdaa05d334d0da79caa5108f5e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: 21300000, guid: 36c49611acdc2468fb01d6ddcb91325c, type: 3}
+  - {fileID: 21300000, guid: c9c027aba53014d31b4102990ff08061, type: 3}
+  - {fileID: 21300000, guid: 5b85ea42e3459458eb28255bdfa09c57, type: 3}
+  - {fileID: 21300000, guid: 51e37586c509041a69f25fa83308c22e, type: 3}
+  - {fileID: 21300000, guid: 619e3add5b3574d9d90a246a9054ccdd, type: 3}
+  - {fileID: 21300000, guid: 0ff28961479b14a30acc5aa73e468721, type: 3}
+  - {fileID: 21300000, guid: 6b282aa28df8a4740a37e4a9c99673ef, type: 3}
+  - {fileID: 21300000, guid: f16bd7d2ee1be4fe994e13df41bfb65e, type: 3}
+  - {fileID: 21300000, guid: 55350bf3397f949449ab9f84c62f3120, type: 3}
+  - {fileID: 21300000, guid: 58ba88565bfc14793ae45ef8aacba842, type: 3}
+  - {fileID: 21300000, guid: 400cb2688244c4e229f0f3718b9e39f0, type: 3}
+  frameTime: 0.1
 --- !u!1 &5592354830954666247
 GameObject:
   m_ObjectHideFlags: 0

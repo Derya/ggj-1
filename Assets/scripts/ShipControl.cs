@@ -5,9 +5,6 @@ using UnityEngine;
 public class ShipControl : MonoBehaviour
 {
     [SerializeField]
-    float turretFiringArcSize;
-
-    [SerializeField]
     float thrustFactor;
 
     [SerializeField]
@@ -38,10 +35,10 @@ public class ShipControl : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         turrets = new TurretWrapper[4] { 
-            new TurretWrapper(turretLeftBot, -70),//-70, 160), 
-            new TurretWrapper(turretRightBot, 20),//20, -110),
-            new TurretWrapper(turretLeftTop, 70),//70, -160),
-            new TurretWrapper(turretRightTop, 110),//110, -20)
+            new TurretWrapper(turretLeftBot, turretLeftBot.transform.localEulerAngles),
+            new TurretWrapper(turretRightBot, turretRightBot.transform.localEulerAngles),
+            new TurretWrapper(turretLeftTop, turretLeftTop.transform.localEulerAngles),
+            new TurretWrapper(turretRightTop, turretRightTop.transform.localEulerAngles),
         };
 
         thrusters = new ThrusterWrapper[thrusterRefs.Length];
@@ -136,36 +133,54 @@ public class ShipControl : MonoBehaviour
         }
     }
 
-    public class TurretWrapper
+}
+
+public class TurretWrapper
+{
+    public GameObject gameObject;
+    public TurretScript script;
+    public float arcCenter;
+
+    float maxAngle = 65;
+
+    public TurretWrapper(GameObject gameObject, Vector3 localRot)
     {
-        public GameObject gameObject;
-        public TurretScript script;
-        public float arcCenter;
-
-        public TurretWrapper(GameObject gameObject, float arcCenter)
-        {
-            this.gameObject = gameObject;
-            this.arcCenter = arcCenter;
-            this.script = gameObject.GetComponent<TurretScript>();
-        }
-
-        public void clamp()
-        {
-
-        }
+        this.gameObject = gameObject;
+        this.arcCenter = localRot.z;
+        this.script = gameObject.GetComponent<TurretScript>();
     }
 
-    public class ThrusterWrapper
+    public void clamp()
     {
-        public GameObject gameObject;
-        public ThrusterScript script;
+        Vector3 localRot = gameObject.transform.localEulerAngles;
 
-        public ThrusterWrapper(GameObject gameObject)
+        if (Mathf.Abs(Mathf.DeltaAngle(localRot.z, arcCenter)) > maxAngle)
         {
-            this.gameObject = gameObject;
-            this.script = gameObject.GetComponent<ThrusterScript>();
+            float edge1 = arcCenter + maxAngle;
+            float edge2 = arcCenter - maxAngle;
+
+            if (Mathf.Abs(Mathf.DeltaAngle(localRot.z, edge1)) < Mathf.Abs(Mathf.DeltaAngle(localRot.z, edge2)))
+            {
+                localRot.z = edge1;
+            }
+            else
+            {
+                localRot.z = edge2;
+            }
+            gameObject.transform.localEulerAngles = localRot;
         }
+
     }
+}
 
+public class ThrusterWrapper
+{
+    public GameObject gameObject;
+    public ThrusterScript script;
 
+    public ThrusterWrapper(GameObject gameObject)
+    {
+        this.gameObject = gameObject;
+        this.script = gameObject.GetComponent<ThrusterScript>();
+    }
 }

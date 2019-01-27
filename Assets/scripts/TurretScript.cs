@@ -97,7 +97,11 @@ public class TurretScript : MonoBehaviour
 
         Vector3 force = flower.transform.up * 10;
 
-        bullet.GetComponent<Rigidbody2D>().AddForce(force);
+        var bulletBody = bullet.GetComponent<Rigidbody2D>();
+
+        bulletBody.velocity = shipBody.velocity;
+
+        bulletBody.AddForce(force);
         shipBody.AddForceAtPosition(-force, bullet.transform.position);
     }
 }

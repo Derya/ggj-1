@@ -92,7 +92,6 @@ public class ShipControl : MonoBehaviour
 
         if (direction == Direction.left)
         {
-            print(body.angularVelocity);
             body.AddTorque(Mathf.Clamp(5 * (maxAngularVelocity - body.angularVelocity), 0, 5));
         }
         else if (direction == Direction.right)
@@ -141,6 +140,16 @@ public class ShipControl : MonoBehaviour
         if (canFire && Input.GetMouseButtonDown(0))
         {
             turretWrapper.script.fire();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "enemy_bullet")
+        {
+            Destroy(collision.gameObject);
+
+            print("were shot capt");
         }
     }
 

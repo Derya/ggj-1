@@ -7,14 +7,26 @@ public class GameManager : MonoBehaviour
 
     float desiredSize = 5;
 
-    Enemy[] enemies;
+    static Enemy[] enemies;
 
-    GameObject player;
+    static GameObject player;
+    static Rigidbody2D playerBody;
+
+    public static GameObject getPlayer()
+    {
+        return player;
+    }
+
+    public static Rigidbody2D getPlayerBody()
+    {
+        return playerBody;
+    }
 
     void Start()
     {
         camera = FindObjectOfType<Camera>();
         player = GameObject.FindWithTag("player_ship");
+        playerBody = player.GetComponent<Rigidbody2D>();
 
         GameObject[] asdf = GameObject.FindGameObjectsWithTag("enemy_ship");
         enemies = new Enemy[asdf.Length];
@@ -60,16 +72,26 @@ public class GameManager : MonoBehaviour
 
         return ret;
     }
+
+    public static void IgnoreCollisionsForEnemyBullet(Collider2D bulletCollider)
+    {
+        foreach (var enemy in enemies)
+        {
+            Physics2D.IgnoreCollision(bulletCollider, enemy.collider);
+        }
+    }
 }
 
 public class Enemy
 {
     public GameObject go;
+    public Collider2D collider;
     public CrabScript script;
 
     public Enemy(GameObject go)
     {
         this.go = go;
+        this.collider = go.GetComponent<Collider2D>();
         this.script = go.GetComponent<CrabScript>();
     }
 }

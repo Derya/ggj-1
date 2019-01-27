@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   flameSpawnTime: 0.3
+  exhaustPrefab: {fileID: 7248006851465286202, guid: e2e5daed426114b7aa385c50b2c9f692,
+    type: 3}
 --- !u!1 &4793167662667313929
 GameObject:
   m_ObjectHideFlags: 0

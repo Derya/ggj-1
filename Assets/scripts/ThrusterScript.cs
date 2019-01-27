@@ -10,6 +10,9 @@ public class ThrusterScript : MonoBehaviour
     [SerializeField]
     float flameSpawnTime;
 
+    [SerializeField]
+    GameObject exhaustPrefab;
+
     SpriteRenderer targetRenderer;
 
     private bool emitFlames = false;
@@ -56,11 +59,11 @@ public class ThrusterScript : MonoBehaviour
 
     IEnumerator spawnFlame()
     {
-        yield return new WaitForSeconds(flameSpawnTime * Random.Range(0.9f, 1.1f));
+        yield return new WaitForSeconds(flameSpawnTime);
 
         if(emitFlames)
         {
-            print("fwoosh");
+            GameObject newExhaust = Instantiate(exhaustPrefab) as GameObject;
         }
 
         StartCoroutine(spawnFlame());

@@ -98,7 +98,7 @@ public class TurretScript : MonoBehaviour
 
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), shipCollider);
 
-        Vector3 force = flower.transform.up * 10;
+        Vector3 force = flower.transform.up * 30;
 
         var bulletBody = bullet.GetComponent<Rigidbody2D>();
 

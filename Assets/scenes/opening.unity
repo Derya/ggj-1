@@ -155,7 +155,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6d563e69a3ed945e1a97476d8c1ac048, type: 3}
   - {fileID: 21300000, guid: 6c9501629ee47425695953f862511120, type: 3}
   - {fileID: 21300000, guid: 4d057f98ab7a542d2819ba74faacc4e3, type: 3}
-  - {fileID: 21300000, guid: 943584b9aae8c4a718e3b4c547475678, type: 3}
   - {fileID: 21300000, guid: 054578b2456514e95b718ca66d6de480, type: 3}
   frameTime: 2
 --- !u!212 &286123371

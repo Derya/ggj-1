@@ -63,7 +63,7 @@ public class AntTurretScript : MonoBehaviour
 
         GameManager.IgnoreCollisionsForEnemyBullet(bullet.GetComponent<Collider2D>());
 
-        Vector3 force = transform.up * 5;
+        Vector3 force = transform.up * 15;
 
         var bulletBody = bullet.GetComponent<Rigidbody2D>();
 

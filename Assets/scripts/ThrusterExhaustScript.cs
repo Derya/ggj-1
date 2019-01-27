@@ -13,7 +13,6 @@ public class ThrusterExhaustScript : MonoBehaviour
 
     void Start()
     {
-        print("AAAA");
         timer = 0;
 
         spriteRenderer = my_own_damn_self.GetComponent<SpriteRenderer>();

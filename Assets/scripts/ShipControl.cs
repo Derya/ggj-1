@@ -105,20 +105,22 @@ public class ShipControl : MonoBehaviour
 
         if (direction == Direction.left)
         {
-            body.AddTorque(Mathf.Clamp(5 * (maxAngularVelocity - body.angularVelocity), 0, 5));
+            body.AddTorque(Mathf.Clamp(15 * (maxAngularVelocity - body.angularVelocity), 0, 15));
         }
         else if (direction == Direction.right)
         {
-            body.AddTorque(Mathf.Clamp(5 * (-maxAngularVelocity - body.angularVelocity), -5, 0));
+            body.AddTorque(Mathf.Clamp(15 * (-maxAngularVelocity - body.angularVelocity), -15, 0));
         }
 
         if (gas == Gas.forward)
         {
-            body.AddRelativeForce(Vector2.up * thrustFactor);
+            float forwardVel = transform.InverseTransformDirection(body.velocity).y;
+            body.AddRelativeForce(Vector2.up * thrustFactor * Mathf.Lerp(1, 5, -forwardVel / 2.0f));
         }
         else if (gas == Gas.back)
         {
-            body.AddRelativeForce(Vector2.down * thrustFactor);
+            float forwardVel = transform.InverseTransformDirection(body.velocity).y;
+            body.AddRelativeForce(Vector2.up * -thrustFactor * Mathf.Lerp(1, 5, forwardVel / 2.0f));
         }
 
         if (Input.GetKey(App.BRAKE_KEY))

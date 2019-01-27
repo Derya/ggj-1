@@ -205,6 +205,7 @@ public class Enemy
     public GameObject go;
     public Collider2D collider;
     public CrabScript script;
+    public bool colonized;
     public RectTransform rt;
 
     public Enemy(GameObject go)
@@ -219,6 +220,7 @@ public class Asteroid
 {
     public GameObject go;
     public AsteroidScript script;
+    public bool colonized;
     public RectTransform rt;
 
     public Asteroid(GameObject go)

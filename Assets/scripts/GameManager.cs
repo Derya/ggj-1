@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,7 +53,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         float closestEnemy = distToClosestEnemy();
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
         if (win)
         {
-            // IDK???
+            SceneManager.LoadScene("end");
         }
     }
 

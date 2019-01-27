@@ -16,7 +16,7 @@ public class BackgroundGenerator : MonoBehaviour
             SpriteRenderer sprite = asteroid.AddComponent<SpriteRenderer>();
             sprite.sprite = sprites[Random.Range(0, sprites.Length)];
             sprite.sortingLayerName = "background";
-            sprite.color = new Color(1, 1, 1, 0.5f);
+            sprite.color = new Color(1, 1, 1, 0.3f);
             asteroid.transform.Rotate(new Vector3(0, 0, Random.Range(0, 180)));
             asteroid.transform.position = new Vector3(
                 player.transform.position.x + Random.Range(-1000, 1000),

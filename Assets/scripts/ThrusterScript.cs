@@ -19,7 +19,7 @@ public class ThrusterScript : MonoBehaviour
 
     void Start()
     {
-
+        StartCoroutine(spawnFlame());
     }
 
     void Update()
@@ -27,8 +27,9 @@ public class ThrusterScript : MonoBehaviour
 
     }
 
-    public void setEmitFlames(Gas gas, Direction direction)
+    public bool setEmitFlames(Gas gas, Direction direction)
     {
+
         switch (type)
         {
             case ThrusterType.forward:
@@ -55,6 +56,8 @@ public class ThrusterScript : MonoBehaviour
                 emitFlames = direction == Direction.left;
                 break;
         }
+
+        return emitFlames;
     }
 
     IEnumerator spawnFlame()

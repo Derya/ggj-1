@@ -13,6 +13,7 @@ public class ThrusterExhaustScript : MonoBehaviour
 
     void Start()
     {
+        print("AAAA");
         timer = 0;
 
         spriteRenderer = my_own_damn_self.GetComponent<SpriteRenderer>();
@@ -23,7 +24,7 @@ public class ThrusterExhaustScript : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        spriteRenderer.color = new Color(1, 1, 1, Mathf.Lerp(1, 0, timer / 6.0f));
+        // spriteRenderer.color = new Color(1, 1, 1, Mathf.Lerp(1, 0, timer / 6.0f));
 
         if (timer > 6)
         {

@@ -61,7 +61,6 @@ public class ShipControl : MonoBehaviour
     void FixedUpdate()
     {
         handleThrusters();
-
     }
 
     void handleThrusters()
@@ -140,8 +139,7 @@ public class TurretWrapper
     public GameObject gameObject;
     public TurretScript script;
     public float arcCenter;
-
-    float maxAngle = 65;
+    static readonly float maxAngle = 65;
 
     public TurretWrapper(GameObject gameObject, Vector3 localRot)
     {

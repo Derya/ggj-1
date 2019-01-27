@@ -817,6 +817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 790958245}
   - component: {fileID: 790958244}
+  - component: {fileID: 790958246}
   m_Layer: 0
   m_Name: crab_prefab
   m_TagString: Untagged
@@ -861,12 +862,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a4747c9ff893f4e04a2f26d018892fb6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 73a0c72832ca14eceac230a48035ce8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 20, y: 11.66}
+  m_Size: {x: 20, y: 12.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -880,12 +881,33 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790958243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.02, y: 2.89, z: 4.5529146}
-  m_LocalScale: {x: 0.174576, y: 0.174576, z: 0.87288}
+  m_LocalPosition: {x: 0.74, y: 4.18, z: 4.5529146}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &790958246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790958243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e09bdaa05d334d0da79caa5108f5e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: 21300000, guid: 73a0c72832ca14eceac230a48035ce8c, type: 3}
+  - {fileID: 21300000, guid: bf9e20c00c77e43eeb14ba24fc2a5c53, type: 3}
+  - {fileID: 21300000, guid: 14bacaf25598447b58f59c70bf40ae26, type: 3}
+  - {fileID: 21300000, guid: c0e7f3196c8da4e52afe9e899355245e, type: 3}
+  - {fileID: 21300000, guid: 53dc88fcaa0384f04be9e5e77e5f607c, type: 3}
+  - {fileID: 21300000, guid: d1bcd8202180d4701aa4fd77ecde9d17, type: 3}
+  - {fileID: 21300000, guid: cbf22da32a7884bbebeaff397ca49b9d, type: 3}
+  frameTime: 0.2
 --- !u!1001 &922537080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1002,7 +1024,7 @@ GameObject:
   - component: {fileID: 1102529604}
   m_Layer: 0
   m_Name: ship
-  m_TagString: Untagged
+  m_TagString: player_ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

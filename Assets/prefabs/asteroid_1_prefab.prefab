@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 5654258601402276904}
   - component: {fileID: 5425563346730961331}
   m_Layer: 0
-  m_Name: asteroid_prefab
-  m_TagString: Untagged
+  m_Name: asteroid_1_prefab
+  m_TagString: asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d7343cb2eaf4276b1cd53b0679e1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPerStage: 8
   mainSprite: {fileID: 264035027204889}
   stages:
   - {fileID: 21300000, guid: cf3bb6736e2644223bdd9503d5b2b2a0, type: 3}

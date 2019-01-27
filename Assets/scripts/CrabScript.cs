@@ -206,4 +206,9 @@ public class CrabScript : MonoBehaviour
     {
         return colonized;
     }
+
+    public bool isDisarmedCompletely()
+    {
+        return colonized || disarmedEntirely;
+    }
 }

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     static Enemy[] enemies;
 
+    static Asteroid[] asteroids;
+
     static GameObject player;
     static Rigidbody2D playerBody;
 
@@ -41,6 +43,13 @@ public class GameManager : MonoBehaviour
         {
             enemies[i] = new Enemy(asdf[i]);
         }
+
+        asdf = GameObject.FindGameObjectsWithTag("asteroid");
+        asteroids = new Asteroid[asdf.Length];
+        for (var i = 0; i < asteroids.Length; i++)
+        {
+            asteroids[i] = new Asteroid(asdf[i]);
+        }
     }
 
     // Update is called once per frame
@@ -59,6 +68,31 @@ public class GameManager : MonoBehaviour
 
         float diff = Mathf.Abs(camera.orthographicSize - desiredSize);
         camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, desiredSize, diff * Time.deltaTime / 5);
+
+        bool win = true;
+
+        foreach (var asteroid in asteroids)
+        {
+            if (!asteroid.script.isColonized())
+            {
+                win = false;
+                break;
+            }
+        }
+
+        foreach (var enemy in enemies)
+        {
+            if (!enemy.script.isDisarmedCompletely())
+            {
+                win = false;
+                break;
+            }
+        }
+
+        if (win)
+        {
+            // IDK???
+        }
     }
 
     float distToClosestEnemy()
@@ -112,5 +146,17 @@ public class Enemy
         this.go = go;
         this.collider = go.GetComponent<Collider2D>();
         this.script = go.GetComponent<CrabScript>();
+    }
+}
+
+public class Asteroid
+{
+    public GameObject go;
+    public AsteroidScript script;
+
+    public Asteroid(GameObject go)
+    {
+        this.go = go;
+        this.script = go.GetComponent<AsteroidScript>();
     }
 }

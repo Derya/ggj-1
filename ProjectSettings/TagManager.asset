@@ -9,6 +9,7 @@ TagManager:
   - enemy_bullet
   - enemy_ship
   - asdf1
+  - killable_ship_component
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,9 @@ public class ShipControl : MonoBehaviour
     float maxAngularVelocity;
 
     [SerializeField]
+    GameObject firePrefab;
+
+    [SerializeField]
     GameObject turretLeftBot;
     [SerializeField]
     GameObject turretRightBot;
@@ -166,6 +169,16 @@ public class ShipControl : MonoBehaviour
     void takeDamage()
     {
         health--;
+
+        
+        GameObject newFire = Instantiate(
+            firePrefab
+        ) as GameObject;
+
+        newFire.transform.RotateAroundLocal(Vector3.forward, Random.Range(-50, 50));
+
+        newFire.transform.parent = transform;
+        newFire.transform.localPosition = new Vector3(Random.Range(-5, 5), Random.Range(-7, 7), -5);
 
         if (health <= 0)
         {

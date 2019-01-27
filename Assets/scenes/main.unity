@@ -1382,6 +1382,8 @@ MonoBehaviour:
   thrustFactor: 10
   turretRotationFactor: 3
   maxAngularVelocity: 60
+  firePrefab: {fileID: 5464399492976925133, guid: 23863c2156d7d407abd1baf0eecf7b84,
+    type: 3}
   turretLeftBot: {fileID: 92401842}
   turretRightBot: {fileID: 1461326527}
   turretLeftTop: {fileID: 1910595967}
@@ -2075,7 +2077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1472067892
 RectTransform:
   m_ObjectHideFlags: 0

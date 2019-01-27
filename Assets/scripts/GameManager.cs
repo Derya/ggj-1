@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject[] asteroidPrefabs;
 
-    static readonly public int lesser = 4;
+    static readonly public int lesser = 2;
     static readonly public int density = 12 / lesser;
     static readonly public int range = 200 / lesser;
 

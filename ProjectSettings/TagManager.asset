@@ -8,6 +8,7 @@ TagManager:
   - player_ship
   - enemy_bullet
   - enemy_ship
+  - asdf1
   layers:
   - Default
   - TransparentFX

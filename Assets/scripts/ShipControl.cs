@@ -31,6 +31,8 @@ public class ShipControl : MonoBehaviour
 
     Rigidbody2D body;
 
+    int health;
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -47,23 +49,31 @@ public class ShipControl : MonoBehaviour
         {
             thrusters[i] = new ThrusterWrapper(thrusterRefs[i]);
         }
+
+        health = 10;
     }
 
     void Update()
     {
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        foreach (TurretWrapper turret in turrets)
+        if (health > 0)
         {
-            handleTurret(mouse, turret);
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            foreach (TurretWrapper turret in turrets)
+            {
+                handleTurret(mouse, turret);
+            }
         }
     }
 
     void FixedUpdate()
     {
-        handleThrusters();
+        if (health > 0) 
+        {
+            handleControls();
+        }
     }
 
-    void handleThrusters()
+    void handleControls()
     {
         bool holdingLeft = Input.GetKey(App.ROTATE_LEFT_KEY);
         bool holdingRight = Input.GetKey(App.ROTATE_RIGHT_KEY);
@@ -92,7 +102,6 @@ public class ShipControl : MonoBehaviour
 
         if (direction == Direction.left)
         {
-            print(body.angularVelocity);
             body.AddTorque(Mathf.Clamp(5 * (maxAngularVelocity - body.angularVelocity), 0, 5));
         }
         else if (direction == Direction.right)
@@ -141,6 +150,26 @@ public class ShipControl : MonoBehaviour
         if (canFire && Input.GetMouseButtonDown(0))
         {
             turretWrapper.script.fire();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "enemy_bullet")
+        {
+            Destroy(collision.gameObject);
+
+            takeDamage();
+        }
+    }
+
+    void takeDamage()
+    {
+        health--;
+
+        if (health <= 0)
+        {
+            GameManager.died();
         }
     }
 

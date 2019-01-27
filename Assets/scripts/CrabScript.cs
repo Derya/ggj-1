@@ -191,7 +191,6 @@ public class CrabScript : MonoBehaviour
             1
         );
 
-
         print(mainRenderer.color);
 
         stage = stage + 1;
@@ -207,5 +206,4 @@ public class CrabScript : MonoBehaviour
     {
         return colonized;
     }
-
 }

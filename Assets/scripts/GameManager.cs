@@ -7,14 +7,33 @@ public class GameManager : MonoBehaviour
 
     float desiredSize = 5;
 
-    Enemy[] enemies;
+    static Enemy[] enemies;
 
-    GameObject player;
+    static GameObject player;
+    static Rigidbody2D playerBody;
+
+    static GameObject youDied;
+
+    public static GameObject getPlayer()
+    {
+        return player;
+    }
+
+    public static Rigidbody2D getPlayerBody()
+    {
+        return playerBody;
+    }
+
+    public static bool dead;
 
     void Start()
     {
+        youDied = GameObject.FindWithTag("asdf1");
+        youDied.SetActive(false);
+
         camera = FindObjectOfType<Camera>();
         player = GameObject.FindWithTag("player_ship");
+        playerBody = player.GetComponent<Rigidbody2D>();
 
         GameObject[] asdf = GameObject.FindGameObjectsWithTag("enemy_ship");
         enemies = new Enemy[asdf.Length];
@@ -60,16 +79,38 @@ public class GameManager : MonoBehaviour
 
         return ret;
     }
+
+    public static void IgnoreCollisionsForEnemyBullet(Collider2D bulletCollider)
+    {
+        foreach (var enemy in enemies)
+        {
+            Physics2D.IgnoreCollision(bulletCollider, enemy.collider);
+        }
+    }
+
+    public static void died()
+    {
+        dead = true;
+
+        foreach ( var x in GameObject.FindGameObjectsWithTag("killable_ship_component"))
+        {
+            x.GetComponent<IdleAnimation>().pause();
+        }
+
+        youDied.SetActive(true);
+    }
 }
 
 public class Enemy
 {
     public GameObject go;
+    public Collider2D collider;
     public CrabScript script;
 
     public Enemy(GameObject go)
     {
         this.go = go;
+        this.collider = go.GetComponent<Collider2D>();
         this.script = go.GetComponent<CrabScript>();
     }
 }

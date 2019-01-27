@@ -16,4 +16,10 @@ public static class Util
         return dest;
     }
 
+    public static float Lerp(float rangeBegin, float rangeEnd, float min, float max, float x)
+    {
+        //aaaaa
+        return 0f;
+    }
+
 }

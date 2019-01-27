@@ -40,7 +40,10 @@ public class TurretScript : MonoBehaviour
 
     void Update()
     {
-
+        if (GameManager.dead)
+        {
+            idleSprites = new Sprite[1] { idleSprites[0] };
+        }
     }
 
     public void fire()

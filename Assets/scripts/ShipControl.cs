@@ -8,10 +8,10 @@ public class ShipControl : MonoBehaviour
     float thrustFactor;
 
     [SerializeField]
-    float shipRotationFactor;
+    float turretRotationFactor;
 
     [SerializeField]
-    float turretRotationFactor;
+    float maxAngularVelocity;
 
     [SerializeField]
     GameObject turretLeftBot;
@@ -68,7 +68,7 @@ public class ShipControl : MonoBehaviour
         bool holdingLeft = Input.GetKey(App.ROTATE_LEFT_KEY);
         bool holdingRight = Input.GetKey(App.ROTATE_RIGHT_KEY);
         bool holdingGas = Input.GetKey(App.ACCELERATE_KEY);
-        bool holdingBrake = Input.GetKey(App.DECERATE_KEY);
+        bool holdingReverse = Input.GetKey(App.DECERATE_KEY);
 
         Direction direction = Direction.none;
         if (holdingLeft && !holdingRight)
@@ -81,22 +81,24 @@ public class ShipControl : MonoBehaviour
         }
 
         Gas gas = Gas.none;
-        if (holdingGas && !holdingBrake)
+        if (holdingGas && !holdingReverse)
         {
             gas = Gas.forward;
         }
-        else if (holdingBrake && !holdingGas)
+        else if (holdingReverse && !holdingGas)
         {
             gas = Gas.back;
         }
 
         if (direction == Direction.left)
         {
-            body.AddTorque(shipRotationFactor);
+            print(body.angularVelocity);
+            body.AddTorque(Mathf.Clamp(5 * (maxAngularVelocity - body.angularVelocity), 0, 5));
         }
         else if (direction == Direction.right)
         {
-            body.AddTorque(-shipRotationFactor);
+            print(body.angularVelocity);
+            body.AddTorque(Mathf.Clamp(5 * (-maxAngularVelocity - body.angularVelocity), -5, 0));
         }
 
         if (gas == Gas.forward)
@@ -106,6 +108,17 @@ public class ShipControl : MonoBehaviour
         else if (gas == Gas.back)
         {
             body.AddRelativeForce(Vector2.down * thrustFactor);
+        }
+
+        if (Input.GetKey(App.BRAKE_KEY))
+        {
+            body.drag = 0.8f;
+            body.angularDrag = 0.8f;
+        }
+        else
+        {
+            body.drag = 0f;
+            body.angularDrag = 0f;
         }
 
         foreach (var thruster in thrusters)

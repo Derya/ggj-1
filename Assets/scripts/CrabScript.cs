@@ -129,11 +129,16 @@ public class CrabScript : MonoBehaviour
 
         gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, q, force);
 
+        body.drag = 0;
         if (vectorToTarget.magnitude > desiredDistance)
         {
-            if (body.GetVector(vectorToTarget).magnitude < 20)
+            if (body.GetVector(vectorToTarget).magnitude < 30)
             {
                 body.AddForce(gameObject.transform.up * 1);
+            }
+            else
+            {
+                body.drag = 0.5f;
             }
         }
         else

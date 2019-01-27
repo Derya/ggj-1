@@ -12,6 +12,16 @@ public class GameManager : MonoBehaviour
 
     static Asteroid[] asteroids;
 
+    public static Enemy[] getEnemies()
+    {
+        return enemies;
+    }
+
+    public static Asteroid[] getAsteroids()
+    {
+        return asteroids;
+    }
+
     static GameObject player;
     static Rigidbody2D playerBody;
 
@@ -27,10 +37,21 @@ public class GameManager : MonoBehaviour
         return playerBody;
     }
 
+    static float time = 0;
+
+    public static float getTime()
+    {
+        return time;
+    }
+
     public static bool dead;
 
     void Start()
     {
+
+        generateAsteroids();
+        generateEnemies();
+
         youDied = GameObject.FindWithTag("asdf1");
         youDied.SetActive(false);
 
@@ -53,8 +74,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    [SerializeField]
+    GameObject crabPrefab;
+
+    [SerializeField]
+    GameObject[] asteroidPrefabs;
+
+
+    void generateEnemies()
+    {
+        for (var i = 0; i < 12; i++)
+        {
+            GameObject newCrab = Instantiate(crabPrefab) as GameObject;
+
+            newCrab.transform.Rotate(new Vector3(0, 0, Random.Range(0, 180)));
+            newCrab.transform.position = new Vector3(
+                Random.Range(-200, 200),
+                Random.Range(-200, 200),
+                0
+            );
+        }
+    }
+
+    void generateAsteroids()
+    {
+        for (var i = 0; i < 36; i++)
+        {
+            GameObject newAsteroid = Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)]) as GameObject;
+
+            newAsteroid.transform.Rotate(new Vector3(0, 0, Random.Range(0, 180)));
+            newAsteroid.transform.position = new Vector3(
+                Random.Range(-200, 200),
+                Random.Range(-200, 200),
+                0
+            );
+        }
+
+    }
+
     void Update()
     {
+        time += Time.deltaTime;
+
         float closestEnemy = distToClosestEnemy();
 
         if (closestEnemy < 25)
@@ -89,7 +151,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (win)
+        if (win && time > 5)
         {
             SceneManager.LoadScene("end");
         }
@@ -140,6 +202,7 @@ public class Enemy
     public GameObject go;
     public Collider2D collider;
     public CrabScript script;
+    public RectTransform rt;
 
     public Enemy(GameObject go)
     {
@@ -153,6 +216,7 @@ public class Asteroid
 {
     public GameObject go;
     public AsteroidScript script;
+    public RectTransform rt;
 
     public Asteroid(GameObject go)
     {

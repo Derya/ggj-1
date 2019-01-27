@@ -16,6 +16,9 @@ public class CrabScript : MonoBehaviour
 
     GameObject player;
 
+    bool disarmedEntirely = false;
+    float countDownToRun = 0;
+
     bool colonized;
 
     Rigidbody2D body;
@@ -44,7 +47,69 @@ public class CrabScript : MonoBehaviour
         StartCoroutine(randomizeDesiredDistance());
     }
 
+    private void Update()
+    {
+        if (countDownToRun > 0)
+        {
+            countDownToRun -= Time.deltaTime;
+        }
+    }
+
     private void FixedUpdate()
+    {
+        if (!disarmedEntirely)
+        {
+            aggro_AI();
+        } 
+        else if (!colonized)
+        {
+            if (countDownToRun <= 0)
+            {
+                runAway_AI();
+            }
+            else
+            {
+                aggro_AI();
+            }
+        }
+        else
+        {
+            body.drag = 0.5f;
+            body.angularDrag = 0.5f;
+        }
+    }
+
+    void runAway_AI()
+    {
+        body.angularDrag = 0.5f;
+
+        Vector3 vectorAwayFromTarget = gameObject.transform.position - player.transform.position;
+        float angleToTarget = Mathf.Atan2(vectorAwayFromTarget.y, vectorAwayFromTarget.x) * Mathf.Rad2Deg;
+
+        Quaternion q = Quaternion.AngleAxis(angleToTarget - 90, Vector3.forward);
+        float force;
+        if (angleToTarget < 0)
+        {
+            force = Mathf.Lerp(3, 0, angleToTarget / 180f);
+        }
+        else
+        {
+            force = Mathf.Lerp(0, 3, angleToTarget / 180f);
+        }
+
+        gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, q, force);
+
+        if (body.velocity.magnitude < 10)
+        {
+            body.AddForce(gameObject.transform.up * 1);
+        }
+        else
+        {
+            body.AddForce(gameObject.transform.up * -1);
+        }
+    }
+
+    void aggro_AI()
     {
         Vector3 vectorToTarget = player.transform.position - gameObject.transform.position;
         float angleToTarget = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
@@ -58,7 +123,7 @@ public class CrabScript : MonoBehaviour
         {
             force = Mathf.Lerp(0, 3, angleToTarget / 180f);
         }
-        print("angle to target: " + angleToTarget + " force: " + force);
+
         gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, q, force);
 
         if (vectorToTarget.magnitude > desiredDistance)
@@ -85,6 +150,11 @@ public class CrabScript : MonoBehaviour
                 int idx = Random.Range(0, ants.Length);
                 Destroy(ants[idx]);
                 ants = ants.removeAt(idx);
+                if (ants.Length == 0)
+                {
+                    disarmedEntirely = true;
+                    countDownToRun = 5f;
+                }
             }
             else
             {
@@ -95,6 +165,7 @@ public class CrabScript : MonoBehaviour
                     nextStage();
                 }
             }
+
         }
 
         else if (collision.gameObject.tag == "player_ship")
@@ -114,6 +185,7 @@ public class CrabScript : MonoBehaviour
         if (stage == overlayStages.Length - 1)
         {
             colonized = true;
+            gameObject.GetComponent<IdleAnimation>().pause();
         }
         overlayRenderer.sprite = overlayStages[stage];
     }

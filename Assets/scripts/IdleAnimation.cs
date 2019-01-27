@@ -11,35 +11,41 @@ public class IdleAnimation : MonoBehaviour
     [SerializeField]
     float frameTime;
 
+    private int frameNumber = 0;
+
+    private bool paused = false;
+
     void Start()
     {
         targetRenderer = GetComponent<SpriteRenderer>();
-        beginIdleAnim();
+        StartCoroutine(playAnimation());
     }
 
-    void Update()
+    IEnumerator playAnimation()
     {
-
-    }
-
-    void beginIdleAnim()
-    {
-        StartCoroutine(playAnimation(0));
-    }
-
-    IEnumerator playAnimation(int frame)
-    {
-        targetRenderer.sprite = frames[frame];
+        targetRenderer.sprite = frames[frameNumber];
 
         yield return new WaitForSeconds(frameTime);
 
-        if (frame + 1 == frames.Length)
+        if (!paused)
         {
-            beginIdleAnim();
+            frameNumber = frameNumber + 1;
+            if (frameNumber == frames.Length)
+            {
+                frameNumber = 0;
+            }
         }
-        else
-        {
-            StartCoroutine(playAnimation(frame + 1));
-        }
+
+        StartCoroutine(playAnimation());
+    }
+
+    public void pause()
+    {
+        paused = true;
+    }
+
+    public void unpause()
+    {
+        paused = false;
     }
 }

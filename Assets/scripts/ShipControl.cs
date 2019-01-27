@@ -97,7 +97,6 @@ public class ShipControl : MonoBehaviour
         }
         else if (direction == Direction.right)
         {
-            print(body.angularVelocity);
             body.AddTorque(Mathf.Clamp(5 * (-maxAngularVelocity - body.angularVelocity), -5, 0));
         }
 

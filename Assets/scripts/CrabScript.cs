@@ -7,6 +7,8 @@ public class CrabScript : MonoBehaviour
     [SerializeField]
     GameObject[] ants;
 
+    SpriteRenderer mainRenderer;
+
     [SerializeField]
     GameObject overlay;
     SpriteRenderer overlayRenderer;
@@ -32,6 +34,7 @@ public class CrabScript : MonoBehaviour
 
     void Start()
     {
+        mainRenderer = GetComponent<SpriteRenderer>();
         overlayRenderer = overlay.GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("player_ship");
         body = GetComponent<Rigidbody2D>();
@@ -180,6 +183,16 @@ public class CrabScript : MonoBehaviour
         {
             return;
         }
+
+        mainRenderer.color = new Color(
+            1 - Mathf.Lerp(0.2f, 1, ((float)stage) / ((float)(overlayStages.Length - 1))),
+            1 - Mathf.Lerp(0.1f, 0.5f, ((float)stage) / ((float)(overlayStages.Length - 1))),
+            1 - Mathf.Lerp(0.2f, 1, ((float)stage) / ((float)(overlayStages.Length - 1))),
+            1
+        );
+
+
+        print(mainRenderer.color);
 
         stage = stage + 1;
         if (stage == overlayStages.Length - 1)

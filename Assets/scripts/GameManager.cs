@@ -81,17 +81,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject[] asteroidPrefabs;
 
+    static readonly public int lesser = 4;
+    static readonly public int density = 12 / lesser;
+    static readonly public int range = 200 / lesser;
 
     void generateEnemies()
     {
-        for (var i = 0; i < 12; i++)
+        for (var i = 0; i < density; i++)
         {
             GameObject newCrab = Instantiate(crabPrefab) as GameObject;
 
             newCrab.transform.Rotate(new Vector3(0, 0, Random.Range(0, 180)));
             newCrab.transform.position = new Vector3(
-                Random.Range(-200, 200),
-                Random.Range(-200, 200),
+                Random.Range(-range, range),
+                Random.Range(-range, range),
                 0
             );
         }
@@ -99,14 +102,14 @@ public class GameManager : MonoBehaviour
 
     void generateAsteroids()
     {
-        for (var i = 0; i < 36; i++)
+        for (var i = 0; i < density * 3; i++)
         {
             GameObject newAsteroid = Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)]) as GameObject;
 
             newAsteroid.transform.Rotate(new Vector3(0, 0, Random.Range(0, 180)));
             newAsteroid.transform.position = new Vector3(
-                Random.Range(-200, 200),
-                Random.Range(-200, 200),
+                Random.Range(-range, range),
+                Random.Range(-range, range),
                 0
             );
         }
@@ -135,11 +138,11 @@ public class GameManager : MonoBehaviour
 
         foreach (var asteroid in asteroids)
         {
-            if (!asteroid.script.isColonized())
-            {
-                win = false;
-                break;
-            }
+            //if (!asteroid.script.isColonized())
+            //{
+            //    win = false;
+            //    break;
+            //}
         }
 
         foreach (var enemy in enemies)
@@ -153,7 +156,7 @@ public class GameManager : MonoBehaviour
 
         if (win && time > 5)
         {
-            SceneManager.LoadScene("end");
+            SceneManager.LoadScene("ending");
         }
     }
 

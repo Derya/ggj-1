@@ -85,7 +85,7 @@ public class MapScript : MonoBehaviour
 
         playerIconRT.rotation = player.transform.rotation;
 
-        float factor = 300 / 200;
+        float factor = 300 / (GameManager.range * 1.5f);
 
         foreach (var asteroid in asteroids)
         {
